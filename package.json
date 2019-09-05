@@ -6,7 +6,11 @@
   "author": "Constantin T.",
   "license": "Apache-2.0",
   "private": false,
-  "tags": [
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ya-kostik/rubik-telegram.git"
+  },
+  "keywords": [
     "rubik",
     "kubik",
     "telegram",
