@@ -62,6 +62,9 @@ class Telegram extends Kubik {
     const request = await fetch(url, {
       method: 'POST',
       body,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
 
     const result = await request.json();
