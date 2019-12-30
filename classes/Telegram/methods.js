@@ -1,4 +1,9 @@
+// July 29, 2019 — Bot API 4.4
 module.exports = [
+  'getUpdates',
+  'setWebhook',
+  'deleteWebhook',
+  'getWebhookInfo',
   'getMe',
   'sendMessage',
   'forwardMessage',
