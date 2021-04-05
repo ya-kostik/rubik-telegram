@@ -53,29 +53,15 @@ class Telegram extends Kubik {
    * @param  {String} [host=this.host] хост API Телеграма
    * @return {Promise<Object>} ответ от Телеграма
    */
-  async request({ name, body, form, token, host }) {
+  async request(name, body, token, host) {
     let headers = {}
-    if (isObject(body)) {
+
+    if (body instanceof FormData) {
+      headers = body.getHeaders();
+    } else if (isObject(body)) {
       body = JSON.stringify(body);
       headers['Content-Type'] = 'application/json';
     }
-
-    if (isObject(form)) {
-      body = new FormData();
-
-      for (const field of Object.keys(form)) {
-        const value = form[field];
-
-        if (isObject(value) && value.value) {
-          body.append(field, value.value, value.options);
-        } else {
-          body.append(field, value);
-        }
-      }
-
-      headers = body.getHeaders();
-    }
-
     const url = this.getUrl(name, token, host);
     const request = await fetch(url, { method: 'POST', body, headers });
 
@@ -92,8 +78,8 @@ methods.forEach((name) => {
   // Если мы переопределили поведение метода в классе по какой-то причине,
   // то не нужно ничего переписывать в прототипе
   if (Telegram.prototype[name]) return;
-  Telegram.prototype[name] = async function({ body, form, token, host }) {
-    return this.request({ name, body, form, token, host });
+  Telegram.prototype[name] = async function(body, token, host) {
+    return this.request(name, body, token, host);
   }
 });
 
