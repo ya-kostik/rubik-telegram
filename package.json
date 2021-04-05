@@ -1,6 +1,6 @@
 {
   "name": "rubik-telegram",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Telegram Bot Api kubik for the Rubik application system",
   "main": "classes/Telegram.js",
   "author": "Constantin T.",
