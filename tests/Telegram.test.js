@@ -30,7 +30,7 @@ describe('Кубик для работы с Телеграмом', () => {
     const app = getApp();
     const kubik = createKubik(Telegram, app);
     await app.up();
-    const response = await kubik.getMe();
+    const response = await kubik.getMe({});
     expect(response.ok).toBe(true);
     await app.down();
   });
@@ -42,7 +42,7 @@ describe('Кубик для работы с Телеграмом', () => {
     const token = config.get(kubik.name).token;
     config.get(kubik.name).token = null;
     await app.up();
-    const response = await kubik.getMe({}, token);
+    const response = await kubik.getMe({ token });
     expect(response.ok).toBe(true);
     await app.down();
   });
@@ -51,7 +51,7 @@ describe('Кубик для работы с Телеграмом', () => {
     const app = getApp();
     const kubik = createKubik(Telegram, app);
     await app.up();
-    await expect(kubik.getMe({}, '12345')).rejects.toThrow();
+    await expect(kubik.getMe({ token: '12345' })).rejects.toThrow();
     await app.down();
   });
 });

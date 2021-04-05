@@ -1,4 +1,5 @@
 const { Kubik } = require('rubik-main');
+const FormData = require('form-data');
 const fetch = require('node-fetch');
 const isObject = require('lodash/isObject');
 
@@ -52,20 +53,31 @@ class Telegram extends Kubik {
    * @param  {String} [host=this.host] хост API Телеграма
    * @return {Promise<Object>} ответ от Телеграма
    */
-  async request(name, body, token, host) {
+  async request({ name, body, form, token, host }) {
+    let headers = {}
     if (isObject(body)) {
       body = JSON.stringify(body);
+      headers['Content-Type'] = 'application/json';
+    }
+
+    if (isObject(form)) {
+      body = new FormData();
+
+      for (const field of Object.keys(form)) {
+        const value = form[field];
+
+        if (isObject(value) && value.value) {
+          body.append(field, value.value, value.options);
+        } else {
+          body.append(field, value);
+        }
+      }
+
+      headers = body.getHeaders();
     }
 
     const url = this.getUrl(name, token, host);
-
-    const request = await fetch(url, {
-      method: 'POST',
-      body,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const request = await fetch(url, { method: 'POST', body, headers });
 
     const result = await request.json();
 
@@ -80,8 +92,8 @@ methods.forEach((name) => {
   // Если мы переопределили поведение метода в классе по какой-то причине,
   // то не нужно ничего переписывать в прототипе
   if (Telegram.prototype[name]) return;
-  Telegram.prototype[name] = async function(body, token, host) {
-    return this.request(name, body, token, host);
+  Telegram.prototype[name] = async function({ body, form, token, host }) {
+    return this.request({ name, body, form, token, host });
   }
 });
 
