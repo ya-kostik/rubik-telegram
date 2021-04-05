@@ -41,7 +41,7 @@ If you do not specify a host, then `https://api.telegram.org/` will be used by d
 If you don't specify a token, you will need to pass it.
 ```js
 ...
-const response = await app.get('telegram').sendMessage(message, token);
+const response = await app.get('telegram').sendMessage({ body: message, token });
 ...
 ```
 
