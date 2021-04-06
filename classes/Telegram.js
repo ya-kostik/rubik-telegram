@@ -1,4 +1,5 @@
 const { Kubik } = require('rubik-main');
+const FormData = require('form-data');
 const fetch = require('node-fetch');
 const isObject = require('lodash/isObject');
 
@@ -53,19 +54,16 @@ class Telegram extends Kubik {
    * @return {Promise<Object>} ответ от Телеграма
    */
   async request(name, body, token, host) {
-    if (isObject(body)) {
+    let headers = {}
+
+    if (body instanceof FormData) {
+      headers = body.getHeaders();
+    } else if (isObject(body)) {
       body = JSON.stringify(body);
+      headers['Content-Type'] = 'application/json';
     }
-
     const url = this.getUrl(name, token, host);
-
-    const request = await fetch(url, {
-      method: 'POST',
-      body,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const request = await fetch(url, { method: 'POST', body, headers });
 
     const result = await request.json();
 
