@@ -1,6 +1,7 @@
 /* global describe test expect */
 const path = require('path');
 const { Kubiks: { Config } } = require('rubik-main');
+const FormData = require('form-data');
 
 const { createApp, createKubik } = require('rubik-main/tests/helpers/creators');
 
@@ -43,6 +44,15 @@ describe('Кубик для работы с Телеграмом', () => {
     config.get(kubik.name).token = null;
     await app.up();
     const response = await kubik.getMe({}, token);
+    expect(response.ok).toBe(true);
+    await app.down();
+  });
+
+  test('Отправляет запрос с form-data', async () => {
+    const app = getApp();
+    const kubik = createKubik(Telegram, app);
+    await app.up();
+    const response = await kubik.getMe(new FormData());
     expect(response.ok).toBe(true);
     await app.down();
   });

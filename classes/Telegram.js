@@ -54,10 +54,10 @@ class Telegram extends Kubik {
    * @return {Promise<Object>} ответ от Телеграма
    */
   async request(name, body, token, host) {
-    let headers = {}
+    const headers = {};
 
     if (body instanceof FormData) {
-      headers = body.getHeaders();
+      Object.assign(headers, body.getHeaders());
     } else if (isObject(body)) {
       body = JSON.stringify(body);
       headers['Content-Type'] = 'application/json';

@@ -1,4 +1,4 @@
-# rubik-micro
+# rubik-telegram
 Telegram's Bot API kubik for the Rubik
 
 ## Install
