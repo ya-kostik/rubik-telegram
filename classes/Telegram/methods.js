@@ -64,5 +64,6 @@ module.exports = [
   'setPassportDataErrors',
   'sendGame',
   'setGameScore',
-  'getGameHighScores'
+  'getGameHighScores',
+  'setMyCommands'
 ];
