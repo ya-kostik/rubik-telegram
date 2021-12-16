@@ -17,7 +17,7 @@ const getApp = () => {
   app.add(new Config(CONFIG_VOLUMES));
 
   return app;
-}
+};
 
 describe('Кубик для работы с Телеграмом', () => {
   test('Создается без проблем и добавляется в App', () => {
