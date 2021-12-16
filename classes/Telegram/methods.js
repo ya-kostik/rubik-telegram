@@ -65,5 +65,7 @@ module.exports = [
   'sendGame',
   'setGameScore',
   'getGameHighScores',
-  'setMyCommands'
+  'setMyCommands',
+  'approveChatJoinRequest',
+  'declineChatJoinRequest'
 ];
