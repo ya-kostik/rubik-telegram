@@ -80,7 +80,7 @@ methods.forEach((name) => {
   if (Telegram.prototype[name]) return;
   Telegram.prototype[name] = async function(body, token, host) {
     return this.request(name, body, token, host);
-  }
+  };
 });
 
 // Чтобы не создавать при каждой инициализации класса,
