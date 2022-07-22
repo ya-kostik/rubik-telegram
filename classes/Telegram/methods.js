@@ -1,6 +1,6 @@
 // June 20, 2022 Bot API 6.1
 module.exports = [
-  // 'kickChatMember', похоже этого метода больше 'нет','
+  // 'kickChatMember', похоже этого метода больше нет
 
   'getMe',
   'logOut',
@@ -97,5 +97,5 @@ module.exports = [
   'setPassportDataErrors',
 
   'setGameScore',
-  'getGameHighScores',
+  'getGameHighScores'
 ];
